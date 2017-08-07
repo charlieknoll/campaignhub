@@ -87,7 +87,7 @@ contract Campaign {
     //FIX change to revert early pattern
     //FIX change to external
     function fund(address contrib) payable external {
-        if (now > info.deadline) revert();
+        if (now > deadline) revert();
 
         if (this.balance >= goalAmount) revert();
 
@@ -141,7 +141,7 @@ contract Campaign {
     function payout() external {
         if (msg.sender != owner) revert();
         if (this.balance < goalAmount) revert();
-        if (!msg.sender.send(balance)) revert();
+        if (!msg.sender.send(this.balance)) revert();
     }
 
 
