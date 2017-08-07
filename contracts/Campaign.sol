@@ -85,7 +85,8 @@ contract Campaign {
     //     OnFund(now, contrib, msg.value);
     // }
     //FIX change to revert early pattern
-    function fund(address contrib) payable public {
+    //FIX change to external
+    function fund(address contrib) payable external {
         if (now > info.deadline) revert();
 
         if (this.balance >= goalAmount) revert();
@@ -106,15 +107,17 @@ contract Campaign {
     //     }
     // }
     //FIX change to revert early
-    //FIX change "public" to "external", maybe not necessary but I thought it needs to be "external" to be invoked by a tx
+    //FIX change "public" to "external", maybe not necessary but I thought it should be external if it doesn't need to be called internally
     //FIX remove use of intermediate success variable
     //FIX clearly revert if payout already occurred
+    //FIX check that user has a balance
     function refund() external {
     	
         if (now < deadline) revert();
         if (this.balance == 0) revert();
 
         uint balance = balances[msg.sender];
+        if (balance == 0) revert();
         balances[msg.sender] = 0;
         if (!msg.sender.send(balance)) revert();
         
