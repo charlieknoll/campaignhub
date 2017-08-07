@@ -12,9 +12,9 @@ contract Campaign {
     //FIX no need to make this a struct
     //FIX more concise naming
     //FIX duration is unneccesary
-    address owner; 
-    uint goalAmount;  // in units of Wei
-    uint deadline;     // in units of seconds
+    address public owner; 
+    uint public goalAmount;  // in units of Wei
+    uint public deadline;     // in units of seconds
 
     // uint8 constant public version = 2;
     //FIX not needed, maybe a good reason for this?
@@ -23,7 +23,9 @@ contract Campaign {
     //FIX no need for struct variable
 
     mapping(address => uint) public balances;    // Funding contributions
-    address public creator;
+    
+    //address public creator;
+    //FIX not needed
 
     //bool public success;      // Get status success/fail when send money
     //FIX "success" should not be a global public local, removed 
